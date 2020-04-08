@@ -1,0 +1,26 @@
+{
+    "name": "potty-pooper",
+    "version": "1.0.0",
+    "description": "App",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/88dennis/potty-pooper.git"
+    },
+    "author": "Dennis",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/88dennis/potty-pooper/issues"
+    },
+    "homepage": "https://github.com/88dennis/potty-pooper#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "ejs": "^3.0.2",
+        "express": "^4.17.1",
+        "locus": "^2.0.4",
+        "mongoose": "^5.9.7"
+    }
+}
