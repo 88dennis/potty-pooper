@@ -8,9 +8,12 @@
                 <%= allPottiesEjs[i]["name"] %>
             </h2>
             <img src="<%= allPottiesEjs[i]['image'] %>" alt="">
-            <span><%= allPottiesEjs[i]["posted"] %></span>
+            <span><%= allPottiesEjs[i]["posted"].toDateString() %></span>
             <p>
-                <%= allPottiesEjs[i]["comments"] %>
+                <!-- substring shortens the characters -->
+                <!-- start of the content to the 75th index -->
+                <!-- first arg first cut; second arg 2nd cut; we take anything in between -->
+                <%= allPottiesEjs[i]["comments"].substring(0, 75) %>...
             </p>
             <a href="/potties/<%= allPottiesEjs[i]['_id'] %>">Read More</a>
         </div>

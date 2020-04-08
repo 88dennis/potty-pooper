@@ -1,6 +1,7 @@
 let express = require("express");
 let mongoose = require("mongoose");
 let bodyParser = require("body-parser");
+let methodOverride = require("method-override");
 let PORT = 3001;
 let app = express();
 
@@ -15,6 +16,8 @@ mongoose.connect('mongodb://localhost:27017/pottyPooper', { useNewUrlParser: tru
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");
+//install and use the method override for you to use the method PUT
+app.use(methodOverride("_method"));
 
 //PLAN - SCHEMA
 //name (establishment name);
@@ -88,7 +91,7 @@ app.get("/potties/new", function (req, res) {
 app.post("/potties", function (req, res) {
     // <!-- IN THE FORM we include the name blog eg blog[name] for it to automatically create an object -->
     console.log("-----------------------")
-    console.log(req.body);
+    // console.log(req.body);
     //this object will be sent to the database using .create then and only then that it will have an _id
     Blog.create(req.body.blog, function (err, newPotty) {
         if (err) {
@@ -103,19 +106,59 @@ app.post("/potties", function (req, res) {
 });
 
 //SHOW ROUTE
-app.get("/potties/:id", function(req, res){
-console.log(req);
-//params is a new object which the value came from the anchor tag in the index
-console.log(req.params["id"]);
+app.get("/potties/:id", function (req, res) {
+    // console.log(req);
+    //params is a new object which the value came from the anchor tag in the index
+    console.log(req.params["id"]);
 
-Blog.findById(req.params.id, function(err, readMore){
-    if(err){
-        console.log(err);
-    } else {
-        res.render("show", {readMoreEjs: readMore});
-    }
-})
+    Blog.findById(req.params.id, function (err, readMore) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render("show", { readMoreEjs: readMore });
+        }
+    })
 
+});
+
+//EDIT ROUTE
+//add edit route
+//add edit form
+//update route
+//update form
+//method override
+
+app.get("/potties/:id/edit", function (req, res) {
+    console.log(req.params.id);
+    Blog.findById(req.params.id, function (err, foundPotty) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log("FOUND ITEM FOR EDIT");
+            console.log(foundPotty);
+            res.render("edit", { editPostEjs: foundPotty });
+        };
+    })
+});
+
+// UPDATE ROUTE
+//YOU CAN USE EITHER A PUT OR A POST THIS IS JUST CONVENTIONAL TO USE IN RESTFUL ROUTING
+// <!-- FROM THE EDIT ROUTE USE THE ID TO COMPLETE THE POST ROUTE See in app.js-->
+// <!-- HTML DOES NOT SUPPORT PUT -->
+//SEE FORM IN EDITEJS
+// <!-- YOU NEED TO DO METHOD OVERRIDE ?_method=PUT -->
+// <!-- NPM install method-override and REQUIRE IT and USE IT
+app.put("/potties/:id", function (req, res) {
+    //Blog.findByIdAndUpdate(id, newData, callback)
+    Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedPost) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log("UPDATED POST ___________________________");
+            console.log(updatedPost);
+            res.redirect("/potties/" + req.params.id);
+        }
+    })
 });
 
 app.listen(PORT, function () {
@@ -153,3 +196,10 @@ app.listen(PORT, function () {
 // EDIT		/dogs/:id/edit	GET			Show edit form for one dog
 // UPDATE		/dogs/:id	PUT			Update a particular dog
 // DESTROY		/dogs/:id	DELETE			Delete a particular dog; then redirect somewhere
+
+//EDIT ROUTE
+//add edit route
+//add edit form
+//update route
+//update form
+//method override

@@ -1,13 +1,29 @@
 <%- include("partials/header") %>
     <h1>READ MORE</h1>
-    <div>
-        <h2>
+    <div class="ui main text container">
+        <div class="ui huge header">Potty Info</div>
+        <div class="ui huge header">
             <%= readMoreEjs["name"] %>
-        </h2>
-        <img src="<%= readMoreEjs['image'] %>" alt="">
-        <span><%= readMoreEjs["posted"] %></span>
-        <p>
-            <%= readMoreEjs["comments"] %>
-        </p>
+        </div>
+
+        <!-- segment creates a space and a border -->
+        <div class="ui top attached segment">
+            <div class="item">
+                <img class="ui centered rounded image" src="<%= readMoreEjs['image'] %>" alt="">
+            </div>
+            <div class="content">
+                <!-- convert the date to a more readable string -->
+                <span><%= readMoreEjs["posted"].toDateString() %></span>
+            </div>
+            <div class="description">
+
+                <p>
+                    <%= readMoreEjs["comments"] %>
+                </p>
+            </div>
+            <a href="/potties/<%= readMoreEjs._id %>/edit">Edit Post</a>
+        </div>
+
+
     </div>
     <%- include("partials/footer") %>
