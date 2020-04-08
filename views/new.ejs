@@ -1,0 +1,28 @@
+<%- include("partials/header") %>
+
+    <div class="ui main text container segment">
+        <div class="ui huge header">New Potty Pooper</div>
+        <form class="ui form" action="/potties" method="POST">
+
+            <div class="field">
+                <label for="name">Name</label>
+                <!-- we include the name blog eg blog[name] for it to automatically create an object -->
+                <input type="text" name="blog[name]" placeholder="name">
+            </div>
+
+            <div class="field">
+                <label for="image">Image URL</label>
+                <input type="text" name="blog[image]" placeholder="image URL">
+            </div>
+            <div class="field">
+                <label for="comments">Comment</label>
+                <textarea name="blog[comments]" placeholder="comment goes here"></textarea>
+            </div>
+            <div class="field">
+                <input class="ui violet big basic button" type="submit">
+            </div>
+
+        </form>
+    </div>
+
+    <%- include("partials/footer") %>

@@ -1,0 +1,13 @@
+<%- include("partials/header") %>
+    <h1>READ MORE</h1>
+    <div>
+        <h2>
+            <%= readMoreEjs["name"] %>
+        </h2>
+        <img src="<%= readMoreEjs['image'] %>" alt="">
+        <span><%= readMoreEjs["posted"] %></span>
+        <p>
+            <%= readMoreEjs["comments"] %>
+        </p>
+    </div>
+    <%- include("partials/footer") %>

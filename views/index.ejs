@@ -1,0 +1,27 @@
+<%- include("partials/header") %>
+
+    <h1 class="pottyTitle">POTTY POOPER</h1>
+
+    <%  for(let i = 0; i < allPottiesEjs.length; i++) { %>
+        <div>
+            <h2>
+                <%= allPottiesEjs[i]["name"] %>
+            </h2>
+            <img src="<%= allPottiesEjs[i]['image'] %>" alt="">
+            <span><%= allPottiesEjs[i]["posted"] %></span>
+            <p>
+                <%= allPottiesEjs[i]["comments"] %>
+            </p>
+            <a href="/potties/<%= allPottiesEjs[i]['_id'] %>">Read More</a>
+        </div>
+        <%}%>
+
+
+            <!-- USING FOR EACH -->
+            <!-- <%  allPottiesEjs.forEach(function(potty){ %>
+                <h1>
+                    <%= potty.name %>
+                </h1>
+                <% }) %> -->
+
+            <%- include("partials/footer") %>
