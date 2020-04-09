@@ -20,7 +20,7 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 
 //PLAN - SCHEMA
-//name (establishment name);
+//name (establishment name);    
 //location
 //image
 //comments
@@ -32,7 +32,7 @@ let pottySchema = new mongoose.Schema(
         comments: String,
         posted: { type: Date, default: Date.now }
     }
-)
+);
 
 //MONGOOSE MODEL CONFIG
 //COMPILE THE SCHEMA INTO A MODEL
@@ -148,6 +148,11 @@ app.get("/potties/:id/edit", function (req, res) {
 //SEE FORM IN EDITEJS
 // <!-- YOU NEED TO DO METHOD OVERRIDE ?_method=PUT -->
 // <!-- NPM install method-override and REQUIRE IT and USE IT
+//you can use:
+
+// app.post("/potties/:id/update", function(req,res){
+//     res.send("this is the update route")
+// })
 app.put("/potties/:id", function (req, res) {
     //Blog.findByIdAndUpdate(id, newData, callback)
     Blog.findByIdAndUpdate(req.params.id, req.body.blog, function (err, updatedPost) {
@@ -159,6 +164,27 @@ app.put("/potties/:id", function (req, res) {
             res.redirect("/potties/" + req.params.id);
         }
     })
+});
+
+//You Can use:
+// app.get("/potties/:id/delete", function(req, res){
+//     res.send("DELETE ROUTE")
+// });
+
+//SEE FORM IN EDITEJS
+// <!-- YOU NEED TO DO METHOD OVERRIDE ?_method=DELETE -->
+// <!-- NPM install method-override and REQUIRE IT and USE IT
+app.delete("/potties/:id", function(req, res){
+    Blog.findByIdAndRemove(req.params.id, function(err, pottyRemoved){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("DELETED")
+            console.log(pottyRemoved);
+            res.redirect("/potties")
+        }
+    })
+
 });
 
 app.listen(PORT, function () {

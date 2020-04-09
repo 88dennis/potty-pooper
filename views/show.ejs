@@ -16,12 +16,19 @@
                 <span><%= readMoreEjs["posted"].toDateString() %></span>
             </div>
             <div class="description">
-
                 <p>
                     <%= readMoreEjs["comments"] %>
                 </p>
             </div>
-            <a href="/potties/<%= readMoreEjs._id %>/edit">Edit Post</a>
+            <!-- for a GET request you may use the anchor tag -->
+            <a class="ui orange basic button" href="/potties/<%= readMoreEjs._id %>/edit">Edit Post</a>
+
+            <!-- when you are using method override it needs to be a POST method -->
+            <form action="/potties/<%= readMoreEjs._id %>?_method=DELETE" method="POST">
+                <!-- the button automatically submits this form -->
+                <button class="ui red basic button">Delete Post</button>
+            </form>
+
         </div>
 
 
