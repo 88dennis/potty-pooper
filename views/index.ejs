@@ -1,30 +1,50 @@
 <%- include("partials/header") %>
 
-    <h1 class="pottyTitle">POTTY POOPER</h1>
+    <div class="ui main text container">
+        <div class="ui huge header">Potty Pooper</div>
+        <div class="ui top attached segment">
+            <div class="ui divided items">
+                <%  for(let i = 0; i < allPottiesEjs.length; i++) { %>
+                    <div class="item">
+                        <div class="image">
+                            <img src="<%= allPottiesEjs[i]['image'] %>" alt="">
+                        </div>
+                        <div class="content">
+                            <a class="header" href="/potties/<%= allPottiesEjs[i]['_id'] %>">
+                                <%= allPottiesEjs[i]["name"] %>
+                            </a>
+                            <div class="meta">
+                                <span><%= allPottiesEjs[i]["posted"].toDateString() %></span>
+                            </div>
+                            <div class="description">
+                                <p>
+                                    <!-- substring shortens the characters -->
+                                    <!-- start of the content to the 75th index -->
+                                    <!-- first arg first cut; second arg 2nd cut; we take anything in between -->
+                                    <%- allPottiesEjs[i]["comments"].substring(0, 75) %>...
+                                </p>
+                            </div>
+                            <div class="extra">
+                                <a class="ui floated basic violet button" href="/potties/<%= allPottiesEjs[i]['_id'] %>">Read More <i class="right chevron icon"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <%}%>
 
-    <%  for(let i = 0; i < allPottiesEjs.length; i++) { %>
-        <div>
-            <h2>
-                <%= allPottiesEjs[i]["name"] %>
-            </h2>
-            <img src="<%= allPottiesEjs[i]['image'] %>" alt="">
-            <span><%= allPottiesEjs[i]["posted"].toDateString() %></span>
-            <p>
-                <!-- substring shortens the characters -->
-                <!-- start of the content to the 75th index -->
-                <!-- first arg first cut; second arg 2nd cut; we take anything in between -->
-                <%= allPottiesEjs[i]["comments"].substring(0, 75) %>...
-            </p>
-            <a href="/potties/<%= allPottiesEjs[i]['_id'] %>">Read More</a>
+
+            </div>
         </div>
-        <%}%>
+
+    </div>
 
 
-            <!-- USING FOR EACH -->
-            <!-- <%  allPottiesEjs.forEach(function(potty){ %>
+
+
+    <!-- USING FOR EACH -->
+    <!-- <%  allPottiesEjs.forEach(function(potty){ %>
                 <h1>
                     <%= potty.name %>
                 </h1>
                 <% }) %> -->
 
-            <%- include("partials/footer") %>
+    <%- include("partials/footer") %>

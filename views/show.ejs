@@ -24,7 +24,7 @@
             <a class="ui orange basic button" href="/potties/<%= readMoreEjs._id %>/edit">Edit Post</a>
 
             <!-- when you are using method override it needs to be a POST method -->
-            <form action="/potties/<%= readMoreEjs._id %>?_method=DELETE" method="POST">
+            <form id="delete" action="/potties/<%= readMoreEjs._id %>?_method=DELETE" method="POST">
                 <!-- the button automatically submits this form -->
                 <button class="ui red basic button">Delete Post</button>
             </form>

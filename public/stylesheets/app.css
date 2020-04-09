@@ -6,6 +6,11 @@ i.icon {
     margin-top: 7.0em
 }
 
-.pottyTitle {
+
+/* .pottyTitle {
     margin-top: 3.0em
+} */
+
+#delete {
+    display: inline;
 }

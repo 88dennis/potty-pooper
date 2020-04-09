@@ -2,8 +2,11 @@ let express = require("express");
 let mongoose = require("mongoose");
 let bodyParser = require("body-parser");
 let methodOverride = require("method-override");
+
+let expressSanitizer = require("express-sanitizer");
 let PORT = 3001;
 let app = express();
+
 
 //connect to the database
 //if you dont have a database this will create one for you
@@ -12,10 +15,13 @@ let app = express();
 //the birdApp is the name of our database
 //npm uninstall mongoose ; npm i mongoose@5.9.8 --save
 mongoose.connect('mongodb://localhost:27017/pottyPooper', { useNewUrlParser: true, useUnifiedTopology: true });
-
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
 app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: true }));
+//express sanitizer goes after body parser
+//use it inside create and update to sanitize the input
+app.use(expressSanitizer());
+
 //install and use the method override for you to use the method PUT
 app.use(methodOverride("_method"));
 
@@ -89,6 +95,11 @@ app.get("/potties/new", function (req, res) {
 
 //CREATE ROUTE
 app.post("/potties", function (req, res) {
+    //sanitize the body coming from the form
+    console.log(req.body, "NOT SANITIZED")
+req.body.blog.body = req.sanitize(req.body.blog.body);
+console.log(req.body, "SANITIZED")
+//this sanitized deflects any script tag
     // <!-- IN THE FORM we include the name blog eg blog[name] for it to automatically create an object -->
     console.log("-----------------------")
     // console.log(req.body);
@@ -192,7 +203,7 @@ app.listen(PORT, function () {
 });
 
 
-//semantic-ui.com
+// semantic-ui.com
 // REST
 // representational state transfer
 // a mapping between HTTP ROutes and CRUD
@@ -214,18 +225,18 @@ app.listen(PORT, function () {
 // UPDATE - /updateBlog/:id
 // DESTROY - /destroyBlog/:id
 
-// Name		Path		HTTP Verb		Purpose
-// INDEX		/dogs		GET			list all dogs
-// NEW		/dogs/new	GET			show new dog form
-// CREATE		/dogs		POST			create a new dog; then redirect
-// SHOW		/dogs/:id	GET			Show info about one specific dog
-// EDIT		/dogs/:id/edit	GET			Show edit form for one dog
-// UPDATE		/dogs/:id	PUT			Update a particular dog
-// DESTROY		/dogs/:id	DELETE			Delete a particular dog; then redirect somewhere
+// Name		Path		HTTP Verb		Purpose                                                     MongooseMethod
+// INDEX		/dogs		GET			list all dogs                                               Dog.find()
+// NEW		/dogs/new	GET			show new dog form                                               N/A just renders a form
+// CREATE		/dogs		POST			create a new dog; then redirect                         Dog.create()
+// SHOW		/dogs/:id	GET			Show info about one specific dog                                Dog.findById()
+// EDIT		/dogs/:id/edit	GET			Show edit form for one dog                                  Dog.findById()
+// UPDATE		/dogs/:id	PUT			Update a particular dog                                     Dog.findByIdAndUpdate() use POST method in form use method overriding; npm i method-override and require it and use it see app.js and edit ejs
+// DESTROY		/dogs/:id	DELETE			Delete a particular dog; then redirect somewhere        Dog.findByIdAndRemove() use GET method in form if basic.. if overriding use POST method
 
-//EDIT ROUTE
-//add edit route
-//add edit form
-//update route
-//update form
-//method override
+// EDIT ROUTE
+// add edit route
+// add edit form
+// update route
+// update form
+// method override
